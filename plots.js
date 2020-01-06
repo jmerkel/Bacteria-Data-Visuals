@@ -66,7 +66,6 @@ function buildBarChart (sample) {
     var trace = [{
       type: "bar",
       orientation: "h",
-
       x: values,
       y: idString,
       text: labels
