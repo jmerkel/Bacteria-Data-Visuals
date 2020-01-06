@@ -21,21 +21,21 @@ function init() {
     buildMetaData(data.names[0]);
     buildBarChart(data.names[0]);
     buildGauge(data.names[0]);
-    
-
-    //Initialize Bubble
+    buildBubbleChart(data.names[0]);
   })
 }
 
 init();
 
 function optionChanged(newSample) {
+  //Update panels on new selection
   buildMetaData(newSample);
   buildBarChart(newSample);
   buildGauge(newSample);
-  //buildBubbleChart(newSample);
+  buildBubbleChart(newSample);
 }
 
+// Build Meta Data Panel
 function buildMetaData(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
@@ -50,6 +50,7 @@ function buildMetaData(sample) {
   });
 }
 
+// Build Bar Chart Panel
 function buildBarChart (sample) {
   d3.json("samples.json").then((data) => {
     var samples = data.samples;
@@ -60,7 +61,7 @@ function buildBarChart (sample) {
     var values = result.sample_values.slice(0,10);
     var labels = result.otu_labels.slice(0,10);
     var idNum = result.otu_ids.slice(0,10);
-    var idString = idNum.map(id => "OTU_" + id.toString());
+    var idString = idNum.map(id => "OTU_" + id);
 
     var trace = [{
       type: "bar",
@@ -80,7 +81,7 @@ function buildBarChart (sample) {
   });
 }
 
-
+// Build Gauge Panel
 function buildGauge(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
@@ -131,19 +132,39 @@ function buildGauge(sample) {
   });
 }
 
-
-/*
-function buildBubbleChart() {
+// Build Bubble Chart Panel
+function buildBubbleChart(sample) {
+  // x: otu_ids
+  // y: sample_values
+  // marker size: sample_values
+  // colors: otu_ids
+  // text values: otu_labels
   d3.json("samples.json").then((data) => {
-    var metadata = data.metadata;
-    var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+    var samples = data.samples;
+    var resultArray = samples.filter(selObj => selObj.id == sample)
     var result = resultArray[0];
-    var PANEL = d3.select("#bubble");
 
-    PANEL.html("");
-    console.log(Object.entries(result))
-    var demographicInfo = Object.entries(result);
-    demographicInfo.forEach(item => PANEL.append("h6").text(item[0].toUpperCase() + ": " + item[1]));
+    var values = result.sample_values;
+    var labels = result.otu_labels;
+    var idNum = result.otu_ids;
+
+    var trace = [{
+      x: idNum,
+      y: values,
+      text: labels,
+      mode: 'markers',
+      marker: {
+        color: idNum,
+        colorscale: 'Earth',
+        size: values
+      }
+    }];
+        
+    var layout = {
+      title: 'Baterium Frequency Chart',
+      showlegend: false,
+    };
+    
+    Plotly.newPlot('bubble', trace, layout);
   });
-}
-*/
+};
