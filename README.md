@@ -1,6 +1,5 @@
 # Bacteria Data Visualization
 ## Plotly Practice
-### UC Berkeley - Module_12
 
 ### Project Summary
 This dashboard was built with increased functionality to visualize the bacterial data for each volunteer. Included in these visualizations is a bar chart of the top 10 bacterial species found in each volunteer, a gauge of washing frequency, and a bubble chart to show a complete overview of the data sample. On page initialization and whenever a new volunteer number is selected, the displays update to show the correct data.
