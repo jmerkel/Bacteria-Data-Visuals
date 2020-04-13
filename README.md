@@ -1,8 +1,9 @@
-# jmerkel_Module_12
-Plotly
+# Bacteria Data Visualization
+## Plotly Practice
+### UC Berkeley - Module_12
 
 ### Project Summary
-This dashboard was built with increased functionality to visualize the bacterial data for each volunteer. Included in these visualizations is a bar chart of the top 10 bacterial species found in each volunteer, a gauge of washing frequency, and a bubble chart to show a complete overview of the data sample. On page initialization and whenever a new volunteer number is selected, the displays update to show the correct data.A
+This dashboard was built with increased functionality to visualize the bacterial data for each volunteer. Included in these visualizations is a bar chart of the top 10 bacterial species found in each volunteer, a gauge of washing frequency, and a bubble chart to show a complete overview of the data sample. On page initialization and whenever a new volunteer number is selected, the displays update to show the correct data.
 
 #### Outline of functionality
 This dashboard uses data stored in a JSON file called "samples.json". For this readme, the term "dataset" is referring to the data found in this file. Each panel is built whenever the page is initialized and again whenever a volunteer is selected using the drop down menu. Each panel uses the volunteer's name (id#) to filter the complete dataset to the applicable information.
